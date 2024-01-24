@@ -1,11 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MoveRemoval : AbstractMoveable
 {
+    [SerializeField] private GameObject componentMenu;
+    [SerializeField] private TMP_Text infoText;
+
+    public float removalDuration { get; set; } = 1f;
+
+    protected override void OpenComponentMenu()
+    {
+        componentReference.curComponentMenu = Instantiate(componentMenu, mainPanel.parent);
+        componentReference.curComponentMenu.GetComponent<RemovalMenu>().Init(this, removalDuration);
+    }
+
+    public void SetInfoText(string text)
+    {
+        infoText.text = text;
+    }
+
     protected override void CalcOffsetToClosestConnectionPoint()
     {
+        SetInfoText("< " + removalDuration.ToString("F1") + " >");
         float minDistance = float.MaxValue;
         GameObject nearestConveyor = null;
 

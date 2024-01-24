@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class AbstractMoveable : MonoBehaviour
+public class AbstractMoveable : MonoBehaviour, IPointerClickHandler
 {
     [Header("Settings")]
     [SerializeField] protected float snapRadius = 70f;
@@ -41,7 +42,11 @@ public class AbstractMoveable : MonoBehaviour
         {
             if (componentReference.objectMoving == null || componentReference.objectMoving == gameObject)
             {
-                if (!isActive)
+                if(Input.GetMouseButtonDown(1))
+                {
+                    Debug.Log("LEFT");
+                }
+                else if (!isActive)
                 {
                     SetMoveComponent(false);
                     GetComponent<Image>().color = mainColor;
@@ -87,6 +92,19 @@ public class AbstractMoveable : MonoBehaviour
         componentReference.objectMoving = value ? gameObject : null;
         button.interactable = !value;
     }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (componentReference.curComponentMenu != null)
+                DestroyImmediate(componentReference.curComponentMenu);
+        
+            OpenComponentMenu();
+        }
+    }
+
+    protected virtual void OpenComponentMenu() => throw new NotImplementedException();
 
     protected void Update()
     {

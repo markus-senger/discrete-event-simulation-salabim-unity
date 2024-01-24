@@ -12,10 +12,13 @@ public class ComponentReference : MonoBehaviour
 
     public GameObject objectMoving { get; set; }
 
+    public GameObject curComponentMenu { get; set; }
+
     private void Awake()
     {
         _sceneHandler = sceneHandler;
         _mainPanel = mainPanel;
         objectMoving = null;
+        curComponentMenu = null;
     }
 }

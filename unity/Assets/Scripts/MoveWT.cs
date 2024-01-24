@@ -7,6 +7,11 @@ using UnityEngine.UI;
 
 public class MoveWT : AbstractMoveable
 {
+    protected override void OpenComponentMenu()
+    {
+        // TODO
+    }
+
     protected override void CalcOffsetToClosestConnectionPoint()
     {
         float minDistance = float.MaxValue;
