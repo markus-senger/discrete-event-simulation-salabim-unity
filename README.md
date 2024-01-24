@@ -7,6 +7,9 @@ This project focuses on simulating a conveyor system with multiple workpiece car
 
 https://github.com/markus-senger/discrete-event-simulation-salabim-unity/assets/77236323/81381ce1-edde-40eb-a381-3a40252dd0c9
 
+![image](https://github.com/markus-senger/discrete-event-simulation-salabim-unity/assets/77236323/6d931f40-e600-43f0-9fb0-cf1889fbfad8)
+
+
 - Salabim:
   
 ![image](https://github.com/markus-senger/discrete-event-simulation-salabim-unity/assets/77236323/e317e5ea-430e-420b-8430-051ff00360b6)
