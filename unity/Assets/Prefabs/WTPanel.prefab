@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4417766708472262715}
   m_Layer: 5
   m_Name: WTPanel
-  m_TagString: Conveyor
+  m_TagString: WT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20166113c83a25f42bc9d451bab767c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snapRadius: 70
+  inFrontofOther: 0
+  isActive: 0
+  isMoveing: 0
 --- !u!222 &8350289547431864265
 CanvasRenderer:
   m_ObjectHideFlags: 0

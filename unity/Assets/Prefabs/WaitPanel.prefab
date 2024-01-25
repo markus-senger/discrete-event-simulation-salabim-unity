@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7891558710708410740}
   m_Layer: 5
   m_Name: WaitPanel
-  m_TagString: WT
+  m_TagString: Wait
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
