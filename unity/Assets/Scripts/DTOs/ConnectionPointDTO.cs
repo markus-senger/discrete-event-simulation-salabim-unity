@@ -11,7 +11,7 @@ namespace Assets.Scripts.DTOs
         public float conveyor1Id { get; set; }
         public float conveyor2Id { get; set; }
 
-        public ConnectionPointDTO(float x, float y, float conveyor1Id, float conveyor2Id) : base(x, y)
+        public ConnectionPointDTO(float x, float y, float rotation, float conveyor1Id, float conveyor2Id) : base(x, y, rotation)
         {
             this.conveyor1Id = conveyor1Id;
             this.conveyor2Id = conveyor2Id;

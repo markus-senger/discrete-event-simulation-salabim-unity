@@ -10,7 +10,7 @@ namespace Assets.Scripts.DTOs
     {
         public float conveyorId { get; set; }
 
-        public WTDTO(float x, float y, float conveyorId) : base(x, y)
+        public WTDTO(float x, float y, float rotation, float conveyorId) : base(x, y, rotation)
         {
             this.conveyorId = conveyorId;
         }

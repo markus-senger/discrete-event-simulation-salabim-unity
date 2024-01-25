@@ -11,7 +11,7 @@ namespace Assets.Scripts.DTOs
         public float conveyorId { get; set; }
         public float removalDuration { get; set; }
 
-        public RemovalDTO(float x, float y, float conveyorId, float removalDuration) : base(x, y)
+        public RemovalDTO(float x, float y, float rotation, float conveyorId, float removalDuration) : base(x, y, rotation)
         {
             this.conveyorId = conveyorId;
             this.removalDuration = removalDuration;

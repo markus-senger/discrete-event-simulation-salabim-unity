@@ -8,7 +8,7 @@ namespace Assets.Scripts.DTOs
 {
     public class ConveyorDTO : AbstractDTO
     {
-        public ConveyorDTO(float x, float y) : base(x, y)
+        public ConveyorDTO(float x, float y, float rotation) : base(x, y, rotation)
         {
         }
     }

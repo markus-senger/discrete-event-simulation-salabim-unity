@@ -11,10 +11,14 @@ namespace Assets.Scripts.DTOs
         public float x { get; set; }
         public float y { get; set; }
 
-        protected AbstractDTO(float x, float y)
+        public float rotation { get; set; }
+
+        protected AbstractDTO(float x, float y, float rotation)
         {
             this.x = x;
-            this.y = y; 
+            this.y = y;
+            this.rotation = rotation;
+
         }
     }
 }

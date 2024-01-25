@@ -11,7 +11,7 @@ namespace Assets.Scripts.DTOs
         public float conveyorId { get; set; }
         public float waitDuration { get; set; }
 
-        public WaitDTO(float x, float y, float conveyorId, float waitDuration) : base(x, y)
+        public WaitDTO(float x, float y, float rotation, float conveyorId, float waitDuration) : base(x, y, rotation)
         {
             this.conveyorId = conveyorId;
             this.waitDuration = waitDuration;
