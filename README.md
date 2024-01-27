@@ -14,8 +14,8 @@ The layout editor can be operated as follows:
 - When a component is selected, you can place it with a left click
 - A right click deselect a component
 - With a placed component, the component can be moved with a left click
-- To delete a placed component, right click and then left click
-- To open a component menu, left click on the respective placed component
+- To delete a placed component, left click on the component and then right click
+- To open a component menu, right click on the respective placed component
 
 ## General
 
