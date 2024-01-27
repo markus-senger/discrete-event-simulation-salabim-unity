@@ -8,10 +8,10 @@ namespace Assets.Scripts.DTOs
 {
     public class WaitDTO : AbstractDTO
     {
-        public float conveyorId { get; set; }
+        public string conveyorId { get; set; }
         public float waitDuration { get; set; }
 
-        public WaitDTO(float x, float y, float rotation, float conveyorId, float waitDuration) : base(x, y, rotation)
+        public WaitDTO(float x, float y, float rotation, string conveyorId, float waitDuration) : base(x, y, rotation)
         {
             this.conveyorId = conveyorId;
             this.waitDuration = waitDuration;

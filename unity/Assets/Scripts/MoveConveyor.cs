@@ -26,7 +26,7 @@ public class MoveConveyor : AbstractMoveable
                 for(int i = 0; i < activeComponent.childCount; i++)
                 {
                     GameObject connectionPoint = activeComponent.GetChild(i).gameObject;
-                    GetComponent<Image>().color = Color.white;
+                    // GetComponent<Image>().color = Color.white;
                     float curDistance = Vector3.Distance(Input.mousePosition, connectionPoint.transform.position);
                     if(curDistance < minDistance)
                     {
@@ -39,7 +39,7 @@ public class MoveConveyor : AbstractMoveable
 
         if(minDistance < snapRadius)
         {
-            GetComponent<Image>().color = Color.green;
+            // GetComponent<Image>().color = Color.green;
             float distanceY = nearestConnectionPoint.transform.position.y - Input.mousePosition.y;
             float distanceX = nearestConnectionPoint.transform.position.x - Input.mousePosition.x;
             float tmpX = nearestConnectionPoint.transform.position.x + ((GetComponent<RectTransform>().rect.width / 2) - (nearestConnectionPoint.GetComponent<RectTransform>().rect.width / 2)) * transform.localScale.x

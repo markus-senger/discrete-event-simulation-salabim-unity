@@ -7,7 +7,6 @@ using System.IO;
 using System.Xml;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class SimulateHandler : MonoBehaviour
 {
@@ -24,19 +23,19 @@ public class SimulateHandler : MonoBehaviour
     private void PrepareSimulation()
     {  
         ComponentsDTO componentsDTO = new ComponentsDTO();
-        componentsDTO.conveyorDTOs = new Dictionary<float, ConveyorDTO>();
-        componentsDTO.connectionPointDTOs = new Dictionary<float, ConnectionPointDTO>();
-        componentsDTO.WTDTOs = new Dictionary<float, WTDTO>();
-        componentsDTO.SpawnerDTOs = new Dictionary<float, SpawnerDTO>();
-        componentsDTO.RemovalDTOs = new Dictionary<float, RemovalDTO>();
-        componentsDTO.WaitDTOs = new Dictionary<float, WaitDTO>();
+        componentsDTO.conveyorDTOs = new Dictionary<string, ConveyorDTO>();
+        componentsDTO.connectionPointDTOs = new Dictionary<string, ConnectionPointDTO>();
+        componentsDTO.WTDTOs = new Dictionary<string, WTDTO>();
+        componentsDTO.SpawnerDTOs = new Dictionary<string, SpawnerDTO>();
+        componentsDTO.RemovalDTOs = new Dictionary<string, RemovalDTO>();
+        componentsDTO.WaitDTOs = new Dictionary<string, WaitDTO>();
 
         foreach (Transform entry in mainPanel)
         {
             float id = entry.position.x * 10f + entry.position.y;
             if (entry.tag == "Conveyor")
             {
-                componentsDTO.conveyorDTOs.Add(id, new ConveyorDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z));
+                componentsDTO.conveyorDTOs.Add(id.ToString("F0"), new ConveyorDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z));
                 CreateConnectionPoints(entry, ref componentsDTO);
             }
             else if (entry.tag == "WT")
@@ -44,7 +43,7 @@ public class SimulateHandler : MonoBehaviour
                 float idConveyor = FindConveyor(entry);
                 if (idConveyor != -1)
                 {
-                    componentsDTO.WTDTOs.Add(id, new WTDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor));           
+                    componentsDTO.WTDTOs.Add(id.ToString("F0"), new WTDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor.ToString("F0")));           
                 }
             }
             else if (entry.tag == "Spawner")
@@ -52,7 +51,7 @@ public class SimulateHandler : MonoBehaviour
                 float idConveyor = FindConveyor(entry);
                 if (idConveyor != -1)
                 {
-                    componentsDTO.SpawnerDTOs.Add(id, new SpawnerDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor, entry.GetComponent<MoveSpawner>().spawnFreq));
+                    componentsDTO.SpawnerDTOs.Add(id.ToString("F0"), new SpawnerDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor.ToString("F0"), entry.GetComponent<MoveSpawner>().spawnFreq));
                 }
             }
             else if (entry.tag == "Removal")
@@ -60,7 +59,7 @@ public class SimulateHandler : MonoBehaviour
                 float idConveyor = FindConveyor(entry);
                 if (idConveyor != -1)
                 {
-                    componentsDTO.RemovalDTOs.Add(id, new RemovalDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor, entry.GetComponent<MoveRemoval>().removalDuration));
+                    componentsDTO.RemovalDTOs.Add(id.ToString("F0"), new RemovalDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor.ToString("F0"), entry.GetComponent<MoveRemoval>().removalDuration));
                 }
             }
             else if (entry.tag == "Wait")
@@ -68,7 +67,7 @@ public class SimulateHandler : MonoBehaviour
                 float idConveyor = FindConveyor(entry);
                 if (idConveyor != -1)
                 {
-                    componentsDTO.WaitDTOs.Add(id, new WaitDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor, entry.GetComponent<MoveWait>().waitDuration));
+                    componentsDTO.WaitDTOs.Add(id.ToString("F0"), new WaitDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor.ToString("F0"), entry.GetComponent<MoveWait>().waitDuration));
                 }
             }
         }
@@ -89,11 +88,11 @@ public class SimulateHandler : MonoBehaviour
                 {
                     foreach (Transform connectionPoint in entry2)
                     {
-                        if (connectionPoint.position == posConnectionPoint && !componentsDTO.connectionPointDTOs.ContainsKey(connectionPoint.position.x * 10 + connectionPoint.position.y))
+                        if (connectionPoint.position == posConnectionPoint && !componentsDTO.connectionPointDTOs.ContainsKey((connectionPoint.position.x * 10 + connectionPoint.position.y).ToString()))
                         {
-                            componentsDTO.connectionPointDTOs.Add(connectionPoint.position.x * 10 + connectionPoint.position.y,
+                            componentsDTO.connectionPointDTOs.Add((connectionPoint.position.x * 10 + connectionPoint.position.y).ToString("F0"),
                                 new ConnectionPointDTO(posConnectionPoint.x, posConnectionPoint.y, child.eulerAngles.z,
-                                entry.position.x * 10f + entry.position.y, entry2.position.x * 10f + entry2.position.y));
+                                (entry.position.x * 10 + entry.position.y).ToString("F0"), (entry2.position.x * 10 + entry2.position.y).ToString("F0")));
 
                             return;
                         }

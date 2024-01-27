@@ -8,10 +8,10 @@ namespace Assets.Scripts.DTOs
 {
     public class ConnectionPointDTO : AbstractDTO
     {
-        public float conveyor1Id { get; set; }
-        public float conveyor2Id { get; set; }
+        public string conveyor1Id { get; set; }
+        public string conveyor2Id { get; set; }
 
-        public ConnectionPointDTO(float x, float y, float rotation, float conveyor1Id, float conveyor2Id) : base(x, y, rotation)
+        public ConnectionPointDTO(float x, float y, float rotation, string conveyor1Id, string conveyor2Id) : base(x, y, rotation)
         {
             this.conveyor1Id = conveyor1Id;
             this.conveyor2Id = conveyor2Id;
