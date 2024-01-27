@@ -7,7 +7,8 @@ env = sim.Environment(trace=False)
 env.background_color('20%gray')
 env.speed(int(sys.argv[1]))
 
-with open('C:/Users/Senge/OneDrive/Desktop/discrete-event-simulation-salabim-unity/unity/simulation.json', 'r') as file:
+jsonPath = 'C:/Users/Senge/OneDrive/Desktop/build/simulation.json' #'./simulation.json' #'../../unity/simulation.json'
+with open(jsonPath, 'r') as file:
     json_data = json.load(file)
 
 conveyor_dtos = json_data["conveyorDTOs"]

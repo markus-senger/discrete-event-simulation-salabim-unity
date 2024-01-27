@@ -51,14 +51,15 @@ class Carrier(sim.Component):
             if not move:
                 oldConveyor = self.conveyor
                 c = ConnectionPointHandler.get(self.conveyor)
-                self.conveyor = c.c2
-                self.curTimeOnConveyor = 0
+                if c != None:
+                    self.conveyor = c.c2
+                    self.curTimeOnConveyor = 0
 
-                while not self.conveyor.isFree:
-                    self.hold(0.01)
+                    while not self.conveyor.isFree:
+                        self.hold(0.01)
 
-                oldConveyor.isFree = True
-                self.conveyor.isFree = False
+                    oldConveyor.isFree = True
+                    self.conveyor.isFree = False
             else:
                 self.hold(1)
                 self.curTimeOnConveyor = self.curTimeOnConveyor + 1
