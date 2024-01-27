@@ -7,7 +7,7 @@ env = sim.Environment(trace=False)
 env.background_color('20%gray')
 env.speed(int(sys.argv[1]))
 
-jsonPath = 'C:/Users/Senge/OneDrive/Desktop/build/simulation.json' #'./simulation.json' #'../../unity/simulation.json'
+jsonPath = './simulation.json' #'../../unity/simulation.json'
 with open(jsonPath, 'r') as file:
     json_data = json.load(file)
 
