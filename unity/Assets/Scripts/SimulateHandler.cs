@@ -3,21 +3,65 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Xml;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class SimulateHandler : MonoBehaviour
 {
     [SerializeField] private Transform mainPanel;
+    [SerializeField] private TMP_Text statusText;
+
+    [SerializeField] private TMP_InputField simSpeedInputField;
+    [SerializeField] private TMP_InputField simDurationInputField;
+
+    private int result = -1;
+    private int wtCount = 0;
 
     private void Start()
     {
         GetComponent<Button>().onClick.AddListener(() =>
         {
+            wtCount = 0;
             PrepareSimulation();
+            StartSimulation();
         });
+    }
+
+    private void StartSimulation()
+    {
+        statusText.text = "Sim: calc";
+        result = -1;
+        Thread simulationThread = new Thread(() => {
+                result = StartSimulationProcess("SalabimSim.exe", simSpeedInputField.text + " " + simDurationInputField.text); 
+            });
+
+        simulationThread.Start();
+    }
+
+    private int StartSimulationProcess(string executablePath, string parameters)
+    {
+        ProcessStartInfo startInfo = new ProcessStartInfo
+        {
+            FileName = executablePath,
+            Arguments = parameters,
+            UseShellExecute = true,
+            CreateNoWindow = false 
+        };
+
+        // Start the process
+        using (Process process = new Process { StartInfo = startInfo })
+        {
+            process.Start();
+            process.WaitForExit();
+            return process.ExitCode;
+        }
+
     }
 
     private void PrepareSimulation()
@@ -43,6 +87,7 @@ public class SimulateHandler : MonoBehaviour
                 float idConveyor = FindConveyor(entry);
                 if (idConveyor != -1)
                 {
+                    wtCount++;
                     componentsDTO.WTDTOs.Add(id.ToString("F0"), new WTDTO(entry.position.x, entry.position.y, entry.rotation.eulerAngles.z, idConveyor.ToString("F0")));           
                 }
             }
@@ -115,5 +160,14 @@ public class SimulateHandler : MonoBehaviour
             }
         }
         return -1f;
+    }
+
+    private void Update()
+    {
+        if (result != -1)
+        {
+            statusText.text = "Current Output: " + result.ToString() + " | WTs: " + wtCount;
+            result = -1;
+        }
     }
 }

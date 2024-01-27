@@ -126,7 +126,7 @@ public class AbstractMoveable : MonoBehaviour, IPointerClickHandler
 
             if (Input.mouseScrollDelta.y != 0)
             {
-                transform.Rotate(Vector3.forward, Input.mouseScrollDelta.y > 0 ? 90f : -90f);
+                transform.Rotate(Vector3.forward, Input.mouseScrollDelta.y > 0 ? -90f : 90f);
             }
         }
     }
