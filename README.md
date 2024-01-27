@@ -4,7 +4,7 @@ This project focuses on simulating a conveyor system with multiple workpiece car
 *Note this is a first prototype, not all functions are ready for production.*
 
 ## Getting started
-The current project status can be downloaded at [Releases](https://github.com/markus-senger/discrete-event-simulation-salabim-unity/releases). There you can download a zip archive and then you can start directly with UnitySalabimLayoutEditor.exe.
+The current project status can be downloaded at [releases](https://github.com/markus-senger/discrete-event-simulation-salabim-unity/releases). There you can download a zip archive and then you can start directly with UnitySalabimLayoutEditor.exe.
 
 #### Control
 The layout editor can be operated as follows:
