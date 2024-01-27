@@ -1,57 +1,61 @@
 import salabim as sim
 from unitysalabim import *
+import json
+import sys
 
 env = sim.Environment(trace=False)
 env.background_color('20%gray')
+env.speed(int(sys.argv[1]))
+
+with open('C:/Users/Senge/OneDrive/Desktop/discrete-event-simulation-salabim-unity/unity/simulation.json', 'r') as file:
+    json_data = json.load(file)
+
+conveyor_dtos = json_data["conveyorDTOs"]
+connection_point_dtos = json_data["connectionPointDTOs"]
+wt_dtos = json_data["WTDTOs"]
+spawner_dtos = json_data["SpawnerDTOs"]
+removal_dtos = json_data["RemovalDTOs"]
+wait_dtos = json_data["WaitDTOs"]
+
+conveyor_dict = {}
+for conveyor_id, conveyor_data in conveyor_dtos.items():    
+    if conveyor_data['rotation'] == 0:
+        conveyor_dict[conveyor_id] = Conveyor(x1=conveyor_data['x'] - 36, y1=conveyor_data['y'], x2=conveyor_data['x'] + 36, y2=conveyor_data['y'])
+    elif conveyor_data['rotation'] == 180:
+        conveyor_dict[conveyor_id] = Conveyor(x1=conveyor_data['x'] + 36, y1=conveyor_data['y'], x2=conveyor_data['x'] - 36, y2=conveyor_data['y'])
+    elif conveyor_data['rotation'] == 90:
+        conveyor_dict[conveyor_id] = Conveyor(x1=conveyor_data['x'], y1=conveyor_data['y'] - 36, x2=conveyor_data['x'], y2=conveyor_data['y'] + 36)
+    else:
+        conveyor_dict[conveyor_id] = Conveyor(x1=conveyor_data['x'], y1=conveyor_data['y'] + 36, x2=conveyor_data['x'], y2=conveyor_data['y']- 36)
+
+connection_point_dict = {}
+for connection_point_id, connection_point_data in connection_point_dtos.items():
+    connection_point_dict[conveyor_dict[connection_point_data['conveyor2Id']]] = ConnectionPoint(x=connection_point_data['x'], y=connection_point_data['y'], 
+                                                                 c1=conveyor_dict[connection_point_data['conveyor2Id']], c2=conveyor_dict[connection_point_data['conveyor1Id']])
+
+ConnectionPointHandler.setup(connection_point_dict)    
+
+for wait_id, wait_data in wait_dtos.items():  
+    conveyor_dict[wait_data['conveyorId']].setWaitPos(True, wait_data['waitDuration'])
+
+for spawner_id, spawner_data in spawner_dtos.items():  
+    conveyor_dict[spawner_data['conveyorId']].setSpawnerPos(True, spawner_data['spawnFrequency'])
+
+outputConveyor = None
+for removal_id, removal_data in removal_dtos.items():  
+    outputConveyor = conveyor_dict[removal_data['conveyorId']]
+    outputConveyor.setRemovalPos(True, removal_data['removalDuration'])
 
 
-c1 = Conveyor(x1=100, y1=100, x2=100, y2=300)
-c2 = Conveyor(x1=100, y1=300, x2=100, y2=500)
-c3 = Conveyor(x1=100, y1=500, x2=300, y2=500)
-c4 = Conveyor(x1=300, y1=500, x2=500, y2=500)
-c5 = Conveyor(x1=500, y1=500, x2=500, y2=700)
-c6 = Conveyor(x1=500, y1=700, x2=700, y2=700)
-c7 = Conveyor(x1=700, y1=700, x2=700, y2=500)
-c8 = Conveyor(x1=700, y1=500, x2=700, y2=300)
-c9 = Conveyor(x1=700, y1=300, x2=900, y2=300)
-c10 = Conveyor(x1=900, y1=300, x2=900, y2=100)
-c11 = Conveyor(x1=900, y1=100, x2=700, y2=100)
-c12 = Conveyor(x1=700, y1=100, x2=500, y2=100)
-c13 = Conveyor(x1=500, y1=100, x2=500, y2=300)
-c14 = Conveyor(x1=500, y1=300, x2=300, y2=300)
-c15 = Conveyor(x1=300, y1=300, x2=300, y2=100)
-c16 = Conveyor(x1=300, y1=100, x2=100, y2=100)
 
-ConnectionPointHandler.setup({
-    c1: ConnectionPoint(x=100, y=300, c1=c1, c2=c2),
-    c2: ConnectionPoint(x=100, y=500, c1=c2, c2=c3),
-    c3: ConnectionPoint(x=300, y=500, c1=c3, c2=c4),
-    c4: ConnectionPoint(x=500, y=500, c1=c4, c2=c5),
-    c5: ConnectionPoint(x=500, y=700, c1=c5, c2=c6),
-    c6: ConnectionPoint(x=700, y=700, c1=c6, c2=c7),
-    c7: ConnectionPoint(x=700, y=500, c1=c7, c2=c8),
-    c8: ConnectionPoint(x=700, y=300, c1=c8, c2=c9),
-    c9: ConnectionPoint(x=900, y=300, c1=c9, c2=c10),
-    c10: ConnectionPoint(x=900, y=100, c1=c10, c2=c11),
-    c11: ConnectionPoint(x=700, y=100, c1=c11, c2=c12),
-    c12: ConnectionPoint(x=500, y=100, c1=c12, c2=c13),
-    c13: ConnectionPoint(x=500, y=300, c1=c13, c2=c14),
-    c14: ConnectionPoint(x=300, y=300, c1=c14, c2=c15),
-    c15: ConnectionPoint(x=300, y=100, c1=c15, c2=c16),
-    c16: ConnectionPoint(x=100, y=100, c1=c16, c2=c1),
-})
 
-Carrier(con=c1)
-Carrier(con=c2)
-Carrier(con=c2, dist=70)
-Carrier(con=c3)
-Carrier(con=c4)
-Carrier(con=c6, dist=50)
-Carrier(con=c9, dist=60)
-Carrier(con=c11, dist=70)
-Carrier(con=c12)
-Carrier(con=c13)
-Carrier(con=c15)
+wt_dict = {}
+for wt_id, wt_data in wt_dtos.items():
+    wt_dict[wt_id] = Carrier(con=conveyor_dict[wt_data['conveyorId']], dist=50)
 
 env.animate(True)
-env.run(env.inf)
+env.run(int(sys.argv[2]))
+
+print(outputConveyor.removalValue)
+sys.exit(outputConveyor.removalValue)
+
