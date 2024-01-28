@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://github.com/markus-senger/discrete-event-simulation-salabim-unity/assets/77236323/eaaae0e5-ec12-4796-aa03-88360e84e36d" alt="discrete event simulation with unity and salabim" title="discrete event simulation with unity and salabim">
+</p>
+
 # discrete-event-simulation-salabim-unity
 This project focuses on simulating a conveyor system with multiple workpiece carriers. The primary goal is to address questions such as the required number of workpiece carriers. Unity is employed as the editor for 2D layout planning of the conveyor system. Subsequently, a discrete event simulation is generated using Salabim to model and analyze the dynamic behavior of the conveyor system. This project is being developed as part of a university project.
 
