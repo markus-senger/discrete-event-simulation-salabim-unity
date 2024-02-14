@@ -12,7 +12,7 @@ The current project status can be downloaded at [releases](https://github.com/ma
 
 #### Control
 The layout editor can be operated as follows:
-- In the sidebar, select a componente with the left mouse button and drag it into the drawing area
+- In the sidebar, select a component with the left mouse button and drag it into the drawing area
 - You can rotate the component with the mouse wheel
 - The editor provides automatic support for exact placement
 - When a component is selected, you can place it with a left click
